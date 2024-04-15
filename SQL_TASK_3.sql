@@ -1,0 +1,53 @@
+CREATE DATABASE IMDB
+USE IMDB
+
+CREATE TABLE Movies
+(
+ Id int PRIMARY KEY IDENTITY,
+ MovieName nvarchar (25),
+ ReleaseYear int, 
+ Duration int, 
+ IMDBPoint decimal (3,1),
+ Check(IMDBPoint >=0 AND IMDBPoint<=10),
+ DIRECTORID int FOREIGN KEY REFERENCES Directors,
+)
+DROP TABLE Movies
+ALTER TABLE Movies DROP COLUMN IMDBPoint 
+
+CREATE TABLE Directors
+(
+DirectorId int PRIMARY KEY IDENTITY,
+DirectorName nvarchar (30),
+Age int ,
+)
+DROP TABLE Directors
+
+CREATE TABLE ACTORS
+(
+ActorId int Primary Key IDENTITY,
+[Name] nvarchar (30),
+Age int,
+)
+
+CREATE TABLE MovieActor
+(
+ID INT PRIMARY KEY IDENTITY,
+MovieID INT FOREIGN KEY REFERENCES Movies, 
+ActorID INT FOREIGN KEY REFERENCES ACTORS,
+)
+
+CREATE TABLE GENRES
+(
+GenreID int PRIMARY KEY IDENTITY,
+GenreName nvarchar (25),
+)
+
+DROP TABLE GENRES
+
+
+CREATE TABLE MovieGenre
+(
+MovieGenreId int PRIMARY KEY IDENTITY, 
+GENREID INT FOREIGN KEY REFERENCES GENRES,
+MOVIEID INT FOREIGN KEY REFERENCES Movies,
+)
